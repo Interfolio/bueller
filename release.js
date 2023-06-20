@@ -20,17 +20,17 @@ const xenaCommand = "/xena_test --sourceVersion develop --environment " + enviro
 const e2eCommand = "/e2e_test --sourceVersion develop --environment " + environment;
 
 // Check if the environment is 'ca_prod'
-const newEnvironmentFlag = environment === 'ca_prod' ? ' --userNewEnvironment true' : '';
+const newEnvironmentFlag = environment === 'ca_prod' ? ' --useNewEnvironment true' : '';
 
 // Generate xena and e2e commands
 let commandString = "";
 xenaApps.forEach(app => {
-  const releaseName = `--releaseType REL --releaseName "${date} | ${app.split('-')[0].toUpperCase()} - Xena"`;
+  const releaseName = `--releaseType REL --releaseName "${environment.toUpperCase()} RELEASE ${date} | ${app.split('-')[0].toUpperCase()} - Xena"`;
   commandString += `${xenaCommand}${newEnvironmentFlag} ${releaseName} --app ${app}\n`;
 });
 
 e2eApps.forEach(app => {
-  const releaseName = `--releaseType REL --releaseName "${date} | ${app.toUpperCase()} - E2E"`;
+  const releaseName = `--releaseType REL --releaseName "${environment.toUpperCase()} RELEASE ${date} | ${app.toUpperCase()} - E2E"`;
   commandString += `${e2eCommand} ${releaseName} --app ${app}\n`;
 });
 
